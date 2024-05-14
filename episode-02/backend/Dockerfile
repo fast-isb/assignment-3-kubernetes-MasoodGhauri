@@ -14,7 +14,7 @@ RUN npm install
 COPY backend/ .
 
 # Expose port to the outside world
-EXPOSE 8002
+EXPOSE 8000
 
 # Define the command to run the application
 CMD ["npm", "start"]
