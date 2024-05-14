@@ -14,7 +14,7 @@ RUN npm install
 COPY fronted/ .
 
 # Expose port to the outside world
-EXPOSE 3007
+EXPOSE 3000
 
 # Define the command to run the application
 CMD ["npm", "start"]
