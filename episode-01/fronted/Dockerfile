@@ -5,13 +5,13 @@ FROM node:14-alpine
 WORKDIR /app/fronted
 
 # Copy package.json and package-lock.json to the working directory
-COPY fronted/package*.json ./
+COPY ./package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code to the working directory
-COPY fronted/ .
+COPY . .
 
 # Expose port to the outside world
 EXPOSE 3000
