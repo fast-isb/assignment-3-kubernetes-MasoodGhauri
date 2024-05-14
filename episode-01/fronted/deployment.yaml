@@ -17,4 +17,4 @@ spec:
         - name: frontend
           image: frontend:1.0
           ports:
-            - containerPort: 3001
+            - containerPort: 3000

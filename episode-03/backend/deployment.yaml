@@ -17,4 +17,4 @@ spec:
         - name: backend
           image: backend:1.0
           ports:
-            - containerPort: 8003
+            - containerPort: 8000
