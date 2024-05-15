@@ -1,0 +1,19 @@
+# episode1-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: episode1-pod
+spec:
+  containers:
+    - name: frontend
+      image: frontend:tag
+      ports:
+        - containerPort: 3000
+    - name: backend
+      image: backend:tag
+      ports:
+        - containerPort: 8000
+    - name: mongodb
+      image: mongo:latest
+      ports:
+        - containerPort: 27017
