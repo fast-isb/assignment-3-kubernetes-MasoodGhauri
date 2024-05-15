@@ -1,6 +1,12 @@
 # Use an official Node.js runtime as the base image
 FROM node:14-alpine
 
+# Install necessary build dependencies
+RUN apk add --no-cache \
+    python \
+    make \
+    g++
+
 # Set the working directory in the container
 WORKDIR /app/backend
 
