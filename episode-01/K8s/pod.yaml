@@ -4,16 +4,16 @@ metadata:
   name: episode1-pod
 spec:
   containers:
-    # - name: frontend
-    #   image: frontend:tag
-    #   ports:
-    #     - containerPort: 3000
-    #   imagePullPolicy: Never
-    - name: backend
-      image: backend:tag
+    - name: ep1-frontend
+      image: masoodghauri/ep1-frontend:latest
       ports:
-        - containerPort: 8000
-      imagePullPolicy: Never
+        - containerPort: 3001
+      imagePullPolicy: Always
+    - name: ep1-backend
+      image: masoodghauri/ep1-backend:latest
+      ports:
+        - containerPort: 8001
+      imagePullPolicy: Always
     - name: mongodb
       image: mongo:latest
       ports:
