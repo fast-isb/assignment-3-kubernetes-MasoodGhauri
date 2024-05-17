@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: episode1-deployment
+  labels:
+    app: episode1
+spec:
+  replicas: 1 # Adjust the replica count as needed
+  selector:
+    matchLabels:
+      app: episode1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: episode1
+    spec:
+      containers:
+        - name: ep1-frontend
+          image: masoodghauri/ep1-frontend:latest
+          ports:
+            - containerPort: 3001
+          imagePullPolicy: Always
+        - name: ep1-backend
+          image: masoodghauri/ep1-backend:latest
+          ports:
+            - containerPort: 8001
+          imagePullPolicy: Always
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: episode1-service
+spec:
+  selector:
+    app: episode1
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3001
+    - name: backend
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
+    - name: mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP
