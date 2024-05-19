@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: episode1-deployment
+  labels:
+    app: episode1
+spec:
+  replicas: 2 # Adjust the replica count as needed
+  selector:
+    matchLabels:
+      app: episode1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: episode1
+    spec:
+      containers:
+        # - name: ep1-frontend
+        #   image: masoodghauri/ep1-frontend:latest
+        #   ports:
+        #     - containerPort: 3001
+        - name: ep1-backend
+          image: masoodghauri/ep1-backend:latest
+          ports:
+            - containerPort: 8001
+          env:
+            - name: USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: USR_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: episode1-service
+spec:
+  type: NodePort
+  selector:
+    app: episode1
+  ports:
+    # - name: frontend
+    #   protocol: TCP
+    #   port: 80
+    #   targetPort: 3001
+    - name: backend
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
+      nodePort: 30100
+      # ranges from 30000-32767
